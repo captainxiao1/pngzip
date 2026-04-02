@@ -70,6 +70,26 @@ Typical requests that should trigger the skill:
 - "Batch-compress PNG images with pngquant"
 - "Install pngzip as a reusable skill"
 
+## One-Line Skill Install Prompt
+
+If you want another AI agent to install this skill directly, you can give it a prompt in this style:
+
+```text
+Fetch and follow https://raw.githubusercontent.com/captainxiao1/pngzip/main/SKILL.md
+```
+
+Example:
+
+```text
+Fetch and follow https://raw.githubusercontent.com/captainxiao1/pngzip/main/SKILL.md
+```
+
+You can also give the agent a slightly more explicit instruction:
+
+```text
+Fetch and follow https://raw.githubusercontent.com/captainxiao1/pngzip/main/SKILL.md, then install and use the pngzip skill.
+```
+
 ## Usage
 
 Show help:
