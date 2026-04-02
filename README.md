@@ -29,46 +29,85 @@ brew install pngquant
 
 ## Installation
 
-Clone the repository, then run:
+This repository is designed to be installed in two ways at the same time:
+
+- as a Codex skill
+- as a global CLI command
+
+Default local repository path:
 
 ```bash
-./scripts/install.sh
+~/tools/pngzip
 ```
 
-The installer will:
+### Step 1. Clone or update the repository
 
-- copy the executable to `~/.local/bin/pngzip`
-- make it executable
-- add `~/.local/bin` to both `~/.zshrc` and `~/.zprofile` if needed
-
-Reload your shell after installation:
+If you do not have the repository locally yet:
 
 ```bash
-source ~/.zprofile
+mkdir -p ~/tools
+git clone https://github.com/captainxiao1/pngzip.git ~/tools/pngzip
+cd ~/tools/pngzip
 ```
 
-## Install As a Codex Skill
+If you already have it:
 
-Install the repository as a local Codex skill:
+```bash
+cd ~/tools/pngzip
+git pull --ff-only
+```
+
+### Step 2. Install the Codex skill
 
 ```bash
 ./scripts/install-skill.sh
 ```
 
-This creates a symlink at `~/.codex/skills/pngzip` pointing to this repository.
+This creates:
 
-After that, the skill can be invoked as:
+```bash
+~/.codex/skills/pngzip
+```
+
+### Step 3. Install the CLI
+
+```bash
+./scripts/install.sh
+```
+
+This creates:
+
+```bash
+~/.local/bin/pngzip
+```
+
+It also ensures this line exists in both `~/.zshrc` and `~/.zprofile`:
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+### Step 4. Reload shell config
+
+```bash
+source ~/.zprofile
+```
+
+### Step 5. Verify installation
+
+```bash
+test -f ~/.codex/skills/pngzip/SKILL.md
+command -v pngzip
+pngzip --help
+```
+
+Only treat installation as complete if all three commands succeed.
+
+After installation, the skill can be invoked as:
 
 ```text
 $pngzip
 ```
-
-Typical requests that should trigger the skill:
-
-- "Compress all PNG assets in ./assets"
-- "Optimize these PNG files"
-- "Batch-compress PNG images with pngquant"
-- "Install pngzip as a reusable skill"
 
 ## One-Line Skill Install Prompt
 
@@ -88,6 +127,12 @@ You can also give the agent a slightly more explicit instruction:
 
 ```text
 Fetch and follow https://raw.githubusercontent.com/captainxiao1/pngzip/main/SKILL.md, then install and use the pngzip skill.
+```
+
+For agents that work better with an explicit execution target, use:
+
+```text
+Fetch and follow https://raw.githubusercontent.com/captainxiao1/pngzip/main/SKILL.md, clone the repository to ~/tools/pngzip, install both the skill and the CLI, then verify command -v pngzip and pngzip --help.
 ```
 
 ## Usage
@@ -114,6 +159,25 @@ Mix directories and files:
 
 ```bash
 pngzip ./assets ./hero.png ./icons/logo.png
+```
+
+## Standard Install Block
+
+If you want a single copy-paste command sequence for a terminal:
+
+```bash
+mkdir -p ~/tools
+if [ -d ~/tools/pngzip/.git ]; then
+  cd ~/tools/pngzip && git pull --ff-only
+else
+  git clone https://github.com/captainxiao1/pngzip.git ~/tools/pngzip && cd ~/tools/pngzip
+fi
+./scripts/install-skill.sh
+./scripts/install.sh
+source ~/.zprofile
+test -f ~/.codex/skills/pngzip/SKILL.md
+command -v pngzip
+pngzip --help
 ```
 
 ## Behavior
@@ -180,9 +244,10 @@ Before publishing this repository:
 3. Verify `./scripts/install.sh` on a clean shell
 4. Review the examples in `README.md`
 5. Confirm `git status` is clean
-6. Confirm `SKILL.md` and `agents/openai.yaml` match the repository purpose
-7. Verify `./scripts/install-skill.sh`
-8. Set repository metadata on GitHub
+6. Confirm `SKILL.md` and `README.md` describe the same install flow
+7. Confirm `SKILL.md` and `agents/openai.yaml` match the repository purpose
+8. Verify `./scripts/install-skill.sh`
+9. Set repository metadata on GitHub
 
 Recommended GitHub metadata:
 
