@@ -1,0 +1,7 @@
+interface:
+  display_name: "pngzip"
+  short_description: "Compress PNG files with pngquant from the CLI"
+  default_prompt: "Use $pngzip to batch-compress PNG files from directories or explicit file paths and install the command if needed."
+
+policy:
+  allow_implicit_invocation: true
