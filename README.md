@@ -109,6 +109,47 @@ After installation, the skill can be invoked as:
 $pngzip
 ```
 
+## Simple Tutorial
+
+### Option 1. Install it manually
+
+```bash
+mkdir -p ~/tools
+git clone https://github.com/captainxiao1/pngzip.git ~/tools/pngzip
+cd ~/tools/pngzip
+./scripts/install-skill.sh
+./scripts/install.sh
+source ~/.zprofile
+pngzip --help
+```
+
+### Option 2. Let Claude Code install it
+
+Copy this prompt into Claude Code:
+
+```text
+Fetch and follow https://raw.githubusercontent.com/captainxiao1/pngzip/main/SKILL.md
+```
+
+If you want a more explicit version, use:
+
+```text
+Read and follow this file exactly:
+https://raw.githubusercontent.com/captainxiao1/pngzip/main/SKILL.md
+
+Clone the repository to ~/tools/pngzip, install the skill, install the CLI, and verify that command -v pngzip and pngzip --help both succeed.
+```
+
+### Option 3. Compress PNG files right away
+
+After installation:
+
+```bash
+pngzip ./assets
+pngzip ./images/a.png ./images/b.png
+pngzip ./assets ./hero.png ./icons/logo.png
+```
+
 ## One-Line Skill Install Prompt
 
 If you want another AI agent to install this skill directly, you can give it a prompt in this style:
